@@ -2,9 +2,9 @@ import sqlite3
 
 
 def ensure_connections(func):
-    """ Декоратор для подключения к СУБД: открывает соединение,
-            выполняет переданную функцию и закрывает за собой соединение.
-            Потокобезопасно!
+    """ DBMS-ə qoşulmaq üçün dekorator: əlaqə açır,
+            ötürülən funksiyanı yerinə yetirir və öz arxasındakı əlaqəni bağlayır.
+            Mövzu təhlükəsizdir!
         """
 
     def inner(*args, **kwargs):
@@ -17,9 +17,9 @@ def ensure_connections(func):
 
 @ensure_connections
 def init_db(conn, force: bool = False):
-    """ Проверить существование таблицы а иначе пересоздать её
-           :param conn: подключение к СУБД
-           :param force: явно пересоздать все таблицы
+    """ Cədvəlin mövcudluğunu yoxlayın, əks halda onu yenidən yaradın
+           :param conn: DBMS-yə qoşulma
+           :param force: bütün cədvəlləri açıq şəkildə yenidən yaradın
        """
     c = conn.cursor()
     if force:
@@ -34,13 +34,13 @@ def init_db(conn, force: bool = False):
             change     STRING NOT NULL
         )
     ''')
-    # Сохранить изменения
+    # Dəyişiklikləri yadda saxla
     conn.commit()
 
 
 @ensure_connections
 def reg_db(conn, user_id: int, name: str, old: int, gender: str,
-           change: str):  # Добавление пользователя в таблицу users
+           change: str):  # İstifadəçilər cədvəlinə istifadəçinin əlavə edilməsi
     c = conn.cursor()
     c.execute('INSERT INTO users (user_id, name, old, gender, change) VALUES (?,?,?,?,?)',
               (user_id, name, old, gender, change))
