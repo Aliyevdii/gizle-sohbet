@@ -37,18 +37,18 @@ user_dict = {}
 def welcome(message):
     if check_user(user_id=message.from_user.id)[0]:
         mark = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-        mark.add('🔍 Find a Partner')
-        mark.add('📰 Info Profile', '🗑 Delete Profile')
-        bot.send_message(message.from_user.id, f"*Welcome to Join {BOT_NAME}🙊*\n\n_Hope you get a friend or a mate_\n\n*NOTE:*\nJOIN\n[👥 ɢʀᴏᴜᴘ](t.me/{GROUP}) | [ᴄʜᴀɴɴᴇʟ 📣](t.me/{CHANNEL}) | [📱ᴏᴡɴᴇʀ](t.me/{OWNER})",parse_mode="markdown",disable_web_page_preview=True, reply_markup=mark)
+        mark.add('🔍 Tərəfdaş tapın')
+        mark.add('📰 Məlumat Profili', '🗑 Profili Sil')
+        bot.send_message(message.from_user.id, f"*Qoşulmağa xoş gəlmisiniz {BOT_NAME}🙊*\n\n_Ümid edirəm bir dost və ya həyat yoldaşı tapacaqsınız_\n\n*NOTE:*\nJOIN\n[👥iron_blood_Gurup](t.me/{GROUP}) | [𝚂𝚞𝚙𝚙𝚘𝚛𝚝 📣](t.me/{CHANNEL}) | [📱𝙾𝚠𝚗𝚎𝚛](t.me/{OWNER})",parse_mode="markdown",disable_web_page_preview=True, reply_markup=mark)
         bot.register_next_step_handler(message, search_prof)
     else:
-        bot.send_message(message.from_user.id, "_👋Hello New Users, To Continue Filling The Following Bio data!_",parse_mode="markdown")
-        bot.send_message(message.from_user.id, "➡️ *Your name :*", parse_mode="markdown")
+        bot.send_message(message.from_user.id, "_👋Salam Yeni İstifadəçilər, Aşağıdakı Bio məlumatlarını Doldurmağa Davam Etmək Üçün!_",parse_mode="markdown")
+        bot.send_message(message.from_user.id, "➡️ *Adınız :*", parse_mode="markdown")
         bot.register_next_step_handler(message, reg_name)
 
 @bot.message_handler(content_types=['text'])
 def text_reac(message):  
-    bot.send_message(message.chat.id, 'Error Occurred\nPlease click /start to try again')
+    bot.send_message(message.chat.id, 'Xəta baş verdi\nYenidən cəhd etmək üçün /start düyməsini klikləyin')
 
 def reg_name(message):  
     if message.text != '':
@@ -72,7 +72,7 @@ def reg_age(message):
     user = user_dict[message.from_user.id]
     user.age = age
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-    markup.add('Man👦', 'Woman👩🏻')
+    markup.add(Oğlan👦', 'Qız👩🏻')
     bot.send_message(message.from_user.id, '*Gender :*',parse_mode="markdown", reply_markup=markup)
     bot.register_next_step_handler(message, reg_sex)
 
@@ -80,11 +80,11 @@ def reg_age(message):
 def reg_sex(message):  
     sex = message.text
     user = user_dict[message.from_user.id]
-    if (sex == u'Man👦') or (sex == u'Woman👩🏻'):
+    if (sex == u'Oğlan👦') or (sex == u'Qız👩🏻'):
         user.sex = sex
         mark = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-        mark.add('Man👦', 'Woman👩🏻', 'Man and woman👀')
-        bot.send_message(message.from_user.id, '*⏳You want to find a partner :*',parse_mode="markdown", reply_markup=mark)
+        mark.add('Oğlan👦', 'Qız👩🏻', 'Kişi və qadın👀')
+        bot.send_message(message.from_user.id, '*⏳Bir tərəfdaş tapmaq istəyirsən :*',parse_mode="markdown", reply_markup=mark)
         bot.register_next_step_handler(message, reg_change)
 
     else:
@@ -93,15 +93,15 @@ def reg_sex(message):
 
 
 def reg_change(message):  
-    if (message.text == u'Man👦') or (message.text == u'Woman👩🏻') or (message.text == u'Man and woman👀'):
+    if (message.text == u'Oğlan👦') or (message.text == u'Qız👩🏻') or (message.text == u'Kişi və qadın👀'):
         user = user_dict[message.from_user.id]
         user.change = message.text
         date1 = datetime.fromtimestamp(message.date, tz=pytz.timezone("asia/jakarta")).strftime("%d/%m/%Y %H:%M:%S").split()
         bot.send_message(message.from_user.id,
-                         "🐱 - _YOUR BIO_ - 🐱\n\n*=> Nama :* " + str(user.name) + "\n*=> Age :* " + str(user.age)+" Year" + "\n*=> Gender :* " + str(user.sex) + "\n*=> Couple Type :* " + str(user.change)+ "\n*=> Register On :\n        >Ate :* "+str(date1[0])+"\n    *    >Time :* "+str(date1[1])+" WIB", parse_mode="markdown")
+                         "🐱 - _SİZİN BIO_ - 🐱\n\n*=> Ad :* " + str(user.name) + "\n*=> Yaş :* " + str(user.age)+" il" + "\n*=> Cins :* " + str(user.sex) + "\n*=> Cütlük Tipi :* " + str(user.change)+ "\n*=> Qeydiyyatdan keçin :\n        >Ate :* "+str(date1[0])+"\n    *    >Vaxt :* "+str(date1[1])+" WIB", parse_mode="markdown")
         markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-        markup.add('Yes ✔️', 'Not ✖️')
-        bot.send_message(message.from_user.id, "`Want to change the data above??`",parse_mode="markdown", reply_markup=markup)
+        markup.add('hə ✔️', 'yox ✖️')
+        bot.send_message(message.from_user.id, "`Yuxarıdakı məlumatları dəyişmək istəyirsiniz??`",parse_mode="markdown", reply_markup=markup)
         bot.register_next_step_handler(message, reg_accept)
     else:
         bot.send_message(message.from_user.id, 'You can only click on the keyboard')
@@ -109,16 +109,16 @@ def reg_change(message):
 
 
 def reg_accept(message):  
-    if (message.text == u'Yes ✔️') or (message.text == u'Not ✖️'):
-        if message.text == u'Yes ✔️':
+    if (message.text == u'hə ✔️') or (message.text == u'yox ✖️'):
+        if message.text == u'hə ✔️':
             tw = types.ReplyKeyboardRemove()
-            bot.send_message(message.from_user.id, "*Re enter🕹\nYour name :*", parse_mode="markdown", reply_markup=tw)
+            bot.send_message(message.from_user.id, "*Yenidən daxil olun🕹\Adınız :*", parse_mode="markdown", reply_markup=tw)
             bot.register_next_step_handler(message, reg_name)
         else:
             if not check_user(user_id=message.from_user.id)[0]:
                 user = user_dict[message.from_user.id]
                 reg_db(user_id=user.user_id, name=user.name, old=user.age, gender=user.sex, change=user.change)
-                bot.send_message(message.from_user.id, "_Succeed...✅\nYour Account Has Been Registered!_", parse_mode="markdown")
+                bot.send_message(message.from_user.id, "_Uğur...✅\nHesabınız Qeydiyyatdan Keçmişdir!_", parse_mode="markdown")
             else:
                 if message.from_user.id in user_dict.keys():
                     user = user_dict[message.from_user.id]
@@ -127,25 +127,25 @@ def reg_accept(message):
 
 
 def search_prof(message):  
-    if (message.text == u'🔍 Find a Partner') or (message.text == u'📰 Info Profile') or (
-            message.text == u'🗑 Delete Profile'):
-        if message.text == u'🔍 Find a Partner':
-            bot.send_message(message.from_user.id, '🚀 Looking for a partner for you . . .')
+    if (message.text == u'🔍 Tərəfdaş tapın') or (message.text == u'📰 Məlumat Profili') or (
+            message.text == u'🗑 Profili silin'):
+        if message.text == u'🔍 Tərəfdaş tapın':
+            bot.send_message(message.from_user.id, '🚀 Sizin üçün partnyor axtarıram . . .')
             search_partner(message)
         elif message.text == u'📰 Info Profile':
             user_info = get_info(user_id=message.from_user.id)
             bot.send_message(message.from_user.id,
-                             "📍Data Profile📍\n\n*Name :* " + str(user_info[2]) +"\n*ID :* `"+str(message.from_user.id)+"`" +"\n*Age :* " + str(
+                             "📍Data Profili📍\n\n*Ad :* " + str(user_info[2]) +"\n*ID :* `"+str(message.from_user.id)+"`" +"\n*Age :* " + str(
                                  user_info[3]) +" Year" + "\n*Gender :* " + str(user_info[4]) + "\n*Couple Type :* " + str(user_info[5]),parse_mode="markdown")
             mark = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-            mark.add('Yes ✔️', 'Not ✖️')
+            mark.add('hə ✔️', 'yox ✖️')
             bot.send_message(message.from_user.id, '_Want to Change Your Profile Data??_',parse_mode="markdown", reply_markup=mark)
             bot.register_next_step_handler(message, reg_accept)
         else:
             delete_user(user_id=message.from_user.id)
             tw = types.ReplyKeyboardRemove()
-            bot.send_message(message.from_user.id, '_Wait a moment..Deleting Profile❗️_', parse_mode="markdown")
-            bot.send_message(message.from_user.id, '_Succeeded..Your Profile Deleted✅_', parse_mode="markdown", reply_markup=tw)
+            bot.send_message(message.from_user.id, '_Bir az gözləyin..Profil silinir❗️_', parse_mode="markdown")
+            bot.send_message(message.from_user.id, '_Uğurlu oldu..Profiliniz Silindi✅_', parse_mode="markdown", reply_markup=tw)
             welcome(message)
     else:
         bot.send_message(message.from_user.id, 'Click on the keyboard')
@@ -172,14 +172,14 @@ def search_partner(message):
                     print(sel[0])
                     print(message.from_user.id)
                     mark2 = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-                    mark2.add('❌ Exit')
+                    mark2.add('❌ Cıxış')
                     add_second_user(first_id=sel[0], second_id=message.from_user.id)
                     user_info = get_info(user_id=sel[0])
                     bot.send_message(message.from_user.id,
-                                     "⚠️*Couple Found*⚠️\n\n*Age :* " + str(user_info[3])+" Year" + "\n*Gender :* " + str(user_info[4]),parse_mode="markdown", reply_markup=mark2)
+                                     "⚠️*Cütlük tapıldı*⚠️\n\n*Age :* " + str(user_info[3])+" Year" + "\n*Gender :* " + str(user_info[4]),parse_mode="markdown", reply_markup=mark2)
                     user_info = get_info(user_id=message.from_user.id)
                     bot.send_message(sel[0],
-                                     "⚠️*Couple Found*⚠️\n\n*Age :* " + str(user_info[3])+" Year" + "\n*Gender :* " + str(user_info[4]),parse_mode="markdown", reply_markup=mark2)
+                                     "⚠️*Cütlük tapıldı*⚠️\n\n*Age :* " + str(user_info[3])+" Year" + "\n*Gender :* " + str(user_info[4]),parse_mode="markdown", reply_markup=mark2)
                     success = True
                     break
         if not success:
@@ -189,10 +189,10 @@ def search_partner(message):
             bot.register_next_step_handler(message, chat)
 
 def chat(message):  
-    if message.text == "❌ Exit" or message.text == "/exit":
+    if message.text == "❌ ECıxış" or message.text == "/exit":
         mark1 = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-        mark1.add('🔍 Find a Partner')
-        mark1.add('📰 Info Profile', '🗑 Delete Profile')
+        mark1.add('🔍 Tərəfdaş tap')
+        mark1.add('📰 Məlumat Profili', '🗑 Profili Sil')
         companion = check_companion(first_id=message.from_user.id)
         bot.send_message(message.from_user.id, "_You left the chat_",parse_mode="markdown", reply_markup=mark1)
         bot.send_message(companion, "_Your Spouse Left the Conversation_", parse_mode="markdown", reply_markup=mark1)
